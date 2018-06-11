@@ -6,7 +6,7 @@ const _ = require('lodash');
 const program = require('commander');
 
 const { version } = require('./package');
-const { zoql, zoqlMore, zoqlDescribe } = require('./index');
+const { zoql, zoqlMore, zoqlDescribe } = require('./src/zoql');
 
 program
   .version(version)
