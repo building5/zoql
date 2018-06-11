@@ -6,7 +6,7 @@ const _ = require('lodash');
 const program = require('commander');
 
 const { version } = require('./package');
-const { zoql, zoqlMore } = require('./index');
+const { zoql, zoqlMore, zoqlDescribe } = require('./index');
 
 program
   .version(version)
@@ -15,6 +15,7 @@ program
   .option('--quiet', 'do not show info messages or progress indicator')
   .option('--limit [n]', 'limit number of response records', Infinity)
   .option('--count', 'returns record count')
+  .option('--describe [object]', "describes an object's fields and related objects")
   .option('--url [url]', 'Zuora REST URL (default: https://rest.zuora.com/)')
   .option('--username [user]', 'Zuora username')
   .option('--password [pass]', 'Zuora password')
@@ -23,11 +24,12 @@ program
 const baseURL = program.url || process.env.ZUORA_URL || 'https://rest.zuora.com/';
 const username = program.username || process.env.ZUORA_USERNAME;
 const password = program.password || process.env.ZUORA_PASSWORD;
+const { count, quiet, describe } = program;
 
 const query = program.args.join(' ');
 
 let fail = false;
-if (!query) {
+if (!query && !describe) {
   console.error('Missing query');
   fail = true;
 }
@@ -49,7 +51,17 @@ if (fail) {
 }
 
 async function main() {
-  const { count, quiet } = program;
+  if (describe) {
+    const fields = await zoqlDescribe({
+      baseURL,
+      username,
+      password,
+      object: describe,
+    });
+    console.log(JSON.stringify(fields, null, 2));
+    return;
+  }
+
   let { limit } = program;
 
   if (!quiet) {

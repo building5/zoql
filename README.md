@@ -19,14 +19,15 @@ $ zoql --help
 
   Options:
 
-    -V, --version      output the version number
-    --quiet            do not show info messages or progress indicator
-    --limit [n]        limit number of response records (default: Infinity)
-    --count            returns record count
-    --url [url]        Zuora REST URL (default: https://rest.zuora.com/)
-    --username [user]  Zuora username
-    --password [pass]  Zuora password
-    -h, --help         output usage information
+    -V, --version        output the version number
+    --quiet              do not show info messages or progress indicator
+    --limit [n]          limit number of response records (default: Infinity)
+    --count              returns record count
+    --describe [object]  Returns a list of the fields of an object
+    --url [url]          Zuora REST URL (default: https://rest.zuora.com/)
+    --username [user]    Zuora username
+    --password [pass]    Zuora password
+    -h, --help           output usage information
 ```
 
 ## Environment variabls
@@ -47,6 +48,9 @@ $ zoql "select Id from Account"
 
 # Return id and timestamps of all rate plan charges updated after a given date 
 $ zoql "select Id, UpdatedDate from RatePlanCharge where UpdatedDate >= '2018-05-11T10:40:14-07:00'"
+
+# Return a list of fields and related objects for Subscription
+$ zoql --describe Subscription
 ```
 
  [ZOQL]: https://knowledgecenter.zuora.com/DC_Developers/K_Zuora_Object_Query_Language
