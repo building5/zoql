@@ -12,6 +12,7 @@ program
   .version(version)
   .description('Executes a ZOQL query')
   .arguments('<query>')
+  .option('--quiet', 'do not show info messages or progress indicator')
   .option('--limit [n]', 'limit number of response records', Infinity)
   .option('--count', 'returns record count')
   .option('--url [url]', 'Zuora REST URL (default: https://rest.zuora.com/)')
@@ -48,18 +49,20 @@ if (fail) {
 }
 
 async function main() {
-  const { count } = program;
+  const { count, quiet } = program;
   let { limit } = program;
 
-  let prompt = '> ';
-  if (count) {
-    prompt += '(count) ';
+  if (!quiet) {
+    let prompt = '> ';
+    if (count) {
+      prompt += '(count) ';
+    }
+    prompt += query;
+    if (!count && Number.isFinite(limit)) {
+      prompt += ` LIMIT ${limit}`;
+    }
+    console.error(prompt);
   }
-  prompt += query;
-  if (!count && Number.isFinite(limit)) {
-    prompt += ` LIMIT ${limit}`;
-  }
-  console.error(prompt);
 
   let response = await zoql({
     baseURL, username, password, query,
@@ -71,7 +74,7 @@ async function main() {
   }
 
   limit = Math.min(limit, response.size);
-  const bar = new ProgressBar('[:bar] :percent :etas', {
+  const bar = quiet || process.stdout.isTTY ? null : new ProgressBar('[:bar] :percent :etas', {
     total: limit,
     width: 42,
   });
@@ -79,8 +82,11 @@ async function main() {
   function log(res) {
     _.forEach(res.records, (record) => {
       console.log(JSON.stringify(record));
-      bar.tick();
-      if (bar.curr >= bar.total) {
+      if (bar) {
+        bar.tick();
+      }
+      limit -= 1;
+      if (limit <= 0) {
         process.exit(0);
       }
     });

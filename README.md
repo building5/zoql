@@ -13,15 +13,16 @@ $ npm install -g zoql
 
 ```bash
 $ zoql --help
-  Usage: zoql [options] [query]
+  Usage: zoql [options] <query>
 
   Executes a ZOQL query
 
   Options:
 
     -V, --version      output the version number
-    --limit [n]        Limit number of response records (default: Infinity)
-    --count            Returns record count
+    --quiet            do not show info messages or progress indicator
+    --limit [n]        limit number of response records (default: Infinity)
+    --count            returns record count
     --url [url]        Zuora REST URL (default: https://rest.zuora.com/)
     --username [user]  Zuora username
     --password [pass]  Zuora password
