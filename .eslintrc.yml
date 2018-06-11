@@ -1,0 +1,19 @@
+---
+root: true
+plugins: [lodash, promise]
+rules:
+  no-await-in-loop: off
+  # Console is needed for CLI apps
+  no-console: off
+  # Error if you chain simple values, or compose complicated ones
+  lodash/chaining: [error, always]
+  # Avoid useless promise wrapping
+  promise/no-return-wrap: error
+  # Ensure consistent param names
+  promise/param-names: error
+  # Avoid swallowed exceptions
+  promise/catch-or-return: error
+env:
+  es6: true
+  node: true
+extends: [airbnb-base, 'plugin:lodash/canonical']

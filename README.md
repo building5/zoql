@@ -42,10 +42,10 @@ option takes precedence.
 
 ```bash
 # Return ids from all accounts
-$ zoql -- "select Id from Account"
+$ zoql "select Id from Account"
 
-# Return id and timestamps of all rate plan charges updated after a given date$ 
-$ zoql -- "select Id, UpdatedDate from RatePlanCharge where UpdatedDate >= '2018-05-11T10:40:14-07:00'"
+# Return id and timestamps of all rate plan charges updated after a given date 
+$ zoql "select Id, UpdatedDate from RatePlanCharge where UpdatedDate >= '2018-05-11T10:40:14-07:00'"
 ```
 
  [ZOQL]: https://knowledgecenter.zuora.com/DC_Developers/K_Zuora_Object_Query_Language
