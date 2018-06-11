@@ -6,7 +6,10 @@
   "scripts": {
     "test": "make test"
   },
-  "keywords": ["Zuora", "ZOQL"],
+  "keywords": [
+    "Zuora",
+    "ZOQL"
+  ],
   "homepage": "https://github.com/building5/zoql",
   "author": "David M. Lee, II <leedm777@yahoo.com>",
   "license": "ISC",
