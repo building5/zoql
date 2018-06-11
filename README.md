@@ -1,18 +1,19 @@
 # zoql
 
 Command line tool to execute [Zuora Object Query Language][ZOQL]. Currently very
-rought and simple, but it works.
+rough and simple, but it works.
 
 ## Installation
 
 ```bash
-$ npm install -g zoql 
+$ npm install -g zoql
 ```
 
 ## Usage
 
-```bash
+```
 $ zoql --help
+
   Usage: zoql [options] <query>
 
   Executes a ZOQL query
@@ -23,7 +24,7 @@ $ zoql --help
     --quiet              do not show info messages or progress indicator
     --limit [n]          limit number of response records (default: Infinity)
     --count              returns record count
-    --describe [object]  Returns a list of the fields of an object
+    --describe [object]  describes an object's fields and related objects
     --url [url]          Zuora REST URL (default: https://rest.zuora.com/)
     --username [user]    Zuora username
     --password [pass]    Zuora password
@@ -32,21 +33,21 @@ $ zoql --help
 
 ## Environment variabls
 
-Some command line options can be provided as environment variables. When both 
+Some command line options can be provided as environment variables. When both
 the environment variable and the command line option are given, the command line
-option takes precedence. 
+option takes precedence.
 
  * `ZUORA_URL` - Zuora REST URL (`--url`)
  * `ZUORA_USERNAME` - Zuora username (`--username`)
  * `ZUORA_PASSWORD` - Zuora password (`--password`)
- 
+
 ## Examples
 
 ```bash
 # Return ids from all accounts
 $ zoql "select Id from Account"
 
-# Return id and timestamps of all rate plan charges updated after a given date 
+# Return id and timestamps of all rate plan charges updated after a given date
 $ zoql "select Id, UpdatedDate from RatePlanCharge where UpdatedDate >= '2018-05-11T10:40:14-07:00'"
 
 # Return a list of fields and related objects for Subscription

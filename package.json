@@ -6,9 +6,14 @@
   "scripts": {
     "test": "make test"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": ["Zuora", "ZOQL"],
+  "homepage": "https://github.com/building5/zoql",
+  "author": "David M. Lee, II <leedm777@yahoo.com>",
   "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/building5/zoql.git"
+  },
   "dependencies": {
     "commander": "^2.15.1",
     "lodash": "^4.17.10",
