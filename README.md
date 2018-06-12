@@ -31,7 +31,7 @@ $ zoql --help
     -h, --help           output usage information
 ```
 
-## Environment variabls
+## Environment variables
 
 Some command line options can be provided as environment variables. When both
 the environment variable and the command line option are given, the command line
@@ -53,5 +53,11 @@ $ zoql "select Id, UpdatedDate from RatePlanCharge where UpdatedDate >= '2018-05
 # Return a list of fields and related objects for Subscription
 $ zoql --describe Subscription
 ```
+
+## Wishlist
+
+ * Unit tests
+ * Prompt for password if it's omitted
+ * Authenticate using OAuth; cache authentication token
 
  [ZOQL]: https://knowledgecenter.zuora.com/DC_Developers/K_Zuora_Object_Query_Language
