@@ -1,6 +1,6 @@
 {
   "name": "zoql",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Zuora Query Language command line client",
   "bin": "./cli.js",
   "scripts": {
