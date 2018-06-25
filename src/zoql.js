@@ -71,7 +71,7 @@ module.exports.zoqlDescribe = async ({
 
   const text = await response.text();
   const xml = await new Promise((resolve, reject) => {
-    xml2js.parseString(text, { trim: true, explicitArray: false }, (err, parsed) => {
+    xml2js.parseString(text, { trim: true }, (err, parsed) => {
       if (err) {
         reject(err);
       }
@@ -80,28 +80,22 @@ module.exports.zoqlDescribe = async ({
   });
 
   const fields = _.chain(xml)
-    .get('object.fields.field')
+    .get('object.fields')
+    .flatMap('field')
     .map((field) => {
-      // XML introduces a silly "context" intermediate object
-      let contexts = field.contexts.context;
-      // and make sure it's an array
-      if (!_.isArray(contexts)) {
-        contexts = [contexts];
-      }
-      return {
-        ...field,
-        contexts,
-      };
+      const noSillyArrays = _.mapValues(field, v => _.size(v) > 1 ? v : v[0]);
+      noSillyArrays.contexts = noSillyArrays.contexts.context;
+      return noSillyArrays;
     })
     .value();
 
   const relatedObjects = _.chain(xml)
-    .get('object.related-objects.object')
-    .thru(a => _.isArray(a) ? a : [a])
+    .get('object.related-objects')
+    .flatMap('object')
     .map(o => ({
       href: o.$.href,
-      name: o.name,
-      label: o.label,
+      name: o.name[0],
+      label: o.label[0],
     }))
     .value();
 
