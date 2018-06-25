@@ -97,6 +97,7 @@ module.exports.zoqlDescribe = async ({
 
   const relatedObjects = _.chain(xml)
     .get('object.related-objects.object')
+    .thru(a => _.isArray(a) ? a : [a])
     .map(o => ({
       href: o.$.href,
       name: o.name,
